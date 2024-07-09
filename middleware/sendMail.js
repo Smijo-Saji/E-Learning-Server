@@ -144,7 +144,7 @@ export const sendForgotMail = async (subject, data) => {
     <p>If you did not request this, please ignore this email.</p>
     <div class="footer">
       <p>Thank you,<br>STRIDE Learning Team</p>
-      <p><a href="https://yourwebsite.com">yourwebsite.com</a></p>
+      <p><a href="https://e-learning-six.vercel.app">Click here to visit our website</a></p>
     </div>
   </div>
 </body>
