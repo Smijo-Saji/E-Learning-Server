@@ -119,3 +119,29 @@ export const updateRole = TryCatch(async (req, res) => {
     res.status(200).json({ message: "Role Updated to user" });
   }
 });
+
+export const editLecture = TryCatch(async (req, res) => {
+  const lecture = await Lecture.findById(req.params.id);
+
+  if (!lecture) {
+    return res.status(404).json({ message: "No Lecture with this id" });
+  }
+
+  const { title, description } = req.body;
+  const file = req.file;
+
+  // Delete the previous video if a new video is uploaded
+  if (file && lecture.video) {
+    rm(lecture.video, () => {
+      console.log("Video Deleted");
+    });
+  }
+
+  lecture.title = title || lecture.title;
+  lecture.description = description || lecture.description;
+  lecture.video = file?.path || lecture.video;
+
+  await lecture.save();
+
+  res.status(200).json({ message: "Lecture Updated", lecture });
+});
